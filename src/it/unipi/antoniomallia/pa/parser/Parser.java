@@ -47,9 +47,14 @@ public class Parser {
 	}
 
 	private Cell doCell() throws Throwable {
+		Cell cell;
 		expect(TokenType.OPEN_COLUMN);
-		Cell cell = new Cell(token.value);
-		expect(TokenType.CELL);
+		if (token.value != null) {
+			cell = new Cell(token.value);
+			expect(TokenType.CELL);
+		} else {
+			cell = new Cell("");
+		}
 		expect(TokenType.CLOSE_COLUMN);
 		return cell;
 	}
