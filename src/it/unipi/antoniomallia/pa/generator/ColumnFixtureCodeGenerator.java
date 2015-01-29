@@ -20,17 +20,26 @@ public class ColumnFixtureCodeGenerator implements CodeGenerator {
 								.size() - 1).text, table.rows.get(1).cells
 								.get(table.rows.get(1).cells.size() - 1).text));
 		stringBuffer.append("public boolean check(Row row){\n\t\t");
-		for (int i = 0; i < table.rows.get(0).cells.size() - 1; i++) {
-			stringBuffer.append(String.format(
-					"%s = (%s) row.getCell(%d);\n\t\t",
-					table.rows.get(0).cells.get(i).text,
-					table.rows.get(1).cells.get(i).text, i));
+		for (int i = 0; i < table.rows.get(1).cells.size() - 1; i++) {
+			stringBuffer
+					.append(String
+							.format("%s = (%s) TypeAdapter.convertTo(row.cells.get(%d).text, \"%s\");\n\t\t",
+									table.rows.get(1).cells.get(i).text,
+									table.rows.get(2).cells.get(i).text, i,
+									table.rows.get(2).cells.get(i).text));
 		}
+		stringBuffer.append(String
+				.format("Object result = (Object) %s;\n\t\t",
+						table.rows.get(1).cells.get(table.rows.get(1).cells
+								.size() - 1).text));
 		stringBuffer
 				.append(String
-						.format("if(%s==(float)row.getCell(row.getSize()-1))\n\t\t\treturn true;\n\t\treturn false;\n\t\t",
-								table.rows.get(0).cells.get(table.rows.get(0).cells
+						.format("boolean check = result.equals(TypeAdapter.convertTo(row.cells.get(row.cells.size() - 1).text, \"%s\"));\n\t\t",
+								table.rows.get(2).cells.get(table.rows.get(1).cells
 										.size() - 1).text));
+
+		stringBuffer
+				.append("row.cells.get(row.cells.size() - 1).text= (result).toString();\n\t\treturn check;");
 		stringBuffer.append("\n\t}\n}");
 		return stringBuffer.toString();
 	}
