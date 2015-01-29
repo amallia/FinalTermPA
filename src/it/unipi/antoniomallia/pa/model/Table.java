@@ -19,6 +19,10 @@ public class Table implements HTMLTag {
 		return cg.generateClass(this);
 	}
 
+	public String generateTest(CodeGenerator cg) {
+		return cg.generateClass(this);
+	}
+	
 	@Override
 	public String toHTML(IHTMLGenerator htmlGen) {
 		return htmlGen.toHTML(this);
