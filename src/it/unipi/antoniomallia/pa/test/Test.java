@@ -1,5 +1,8 @@
 package it.unipi.antoniomallia.pa.test;
 
+import it.unipi.antoniomallia.pa.generator.ActionFixtureCodeGenerator;
+import it.unipi.antoniomallia.pa.generator.ColumnFixtureCodeGenerator;
+import it.unipi.antoniomallia.pa.generator.HTMLGenerator;
 import it.unipi.antoniomallia.pa.model.Table;
 import it.unipi.antoniomallia.pa.parser.Parser;
 
@@ -13,8 +16,10 @@ public class Test {
 				.get("resources/action.html")));
 		Parser parser = new Parser(html);
 		Table table = parser.doTable();
-		//System.out.println(table.generateClass(new ActionFixtureCodeGenerator()));
+	//	System.out.println(test(table));
+		System.out.println(table.generateTest(new ActionFixtureCodeGenerator()));
 		//System.out.println(table.toHTML(new HTMLGenerator()));
-		System.out.println(table.execute(new Action()));
+		//System.out.println(table.execute(new Action()));
 	}
+
 }

@@ -5,14 +5,11 @@ import it.unipi.antoniomallia.pa.parser.Token.TokenType;
 import java.util.StringTokenizer;
 
 public class Tokenizer {
-
 	public Token token;
 	public StringTokenizer st;
-
 	public Tokenizer(String input) {
 		st = new StringTokenizer(input, "<>\t\n\r");
 	}
-
 	public Token nextToken() {
 		String next = new String();
 		if (st.hasMoreTokens()) {

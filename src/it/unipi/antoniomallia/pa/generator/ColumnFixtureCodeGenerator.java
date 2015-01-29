@@ -2,8 +2,7 @@ package it.unipi.antoniomallia.pa.generator;
 
 import it.unipi.antoniomallia.pa.model.Table;
 
-public class ColumnFixtureCodeGenerator implements CodeGenerator {
-
+public class ColumnFixtureCodeGenerator extends CodeGenerator {
 	public String generateClass(Table table) {
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append(String.format(
@@ -41,17 +40,6 @@ public class ColumnFixtureCodeGenerator implements CodeGenerator {
 		stringBuffer
 				.append("row.cells.get(row.cells.size() - 1).text= (result).toString();\n\t\treturn check;");
 		stringBuffer.append("\n\t}\n}");
-		return stringBuffer.toString();
-	}
-
-	public String generateTest(Table table) {
-		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(String.format("%s %s = new %s();\n",
-				table.rows.get(0).cells.get(0).text,
-				table.rows.get(0).cells.get(0).text.toLowerCase(),
-				table.rows.get(0).cells.get(0).text));
-		stringBuffer.append(String.format("table.execute(%s);\n",
-				table.rows.get(0).cells.get(0).text.toLowerCase()));
 		return stringBuffer.toString();
 	}
 }

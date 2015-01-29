@@ -7,15 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class ActionFixtureCodeGenerator implements CodeGenerator {
-
-	@Override
+public class ActionFixtureCodeGenerator extends CodeGenerator {
 	public String generateClass(Table table) {
 		StringBuffer sb = new StringBuffer();
 		String checkFunction = new String();
 		Stack<String> stack = new Stack<String>();
-		sb.append(String.format(
-				"public class %s extends ActionFixture {\n\t",
+		sb.append(String.format("public class %s extends ActionFixture {\n\t",
 				table.rows.get(0).cells.get(0).text));
 		sb.append("public boolean process() {\n");
 		for (Row row : table.rows) {
@@ -46,7 +43,9 @@ public class ActionFixtureCodeGenerator implements CodeGenerator {
 				}
 				break;
 			case "check":
-				checkFunction=String.format("private boolean check(Object obj){\n\t\treturn obj.equals(%s);\n\t}",row.cells.get(1).text); 
+				checkFunction = String
+						.format("private boolean check(Object obj){\n\t\treturn obj.equals(%s);\n\t}",
+								row.cells.get(1).text);
 				stack.push(String.format("return check(%s)", stack.pop()));
 				break;
 			default:
@@ -61,12 +60,5 @@ public class ActionFixtureCodeGenerator implements CodeGenerator {
 		sb.append(checkFunction);
 		sb.append("\n}");
 		return sb.toString();
-	}
-
-	@Override
-	public String generateTest(Table table) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	}	
 }

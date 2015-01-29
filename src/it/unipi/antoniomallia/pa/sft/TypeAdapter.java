@@ -1,7 +1,6 @@
 package it.unipi.antoniomallia.pa.sft;
 
 public class TypeAdapter {
-
 	public static Object convertTo(String s, String type) {
 		switch (type) {
 		case "float":
@@ -23,6 +22,5 @@ public class TypeAdapter {
 		default:
 			return s;
 		}
-
 	}
 }

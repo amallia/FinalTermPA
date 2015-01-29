@@ -5,8 +5,6 @@ import it.unipi.antoniomallia.pa.model.Row;
 import it.unipi.antoniomallia.pa.model.Table;
 
 public class HTMLGenerator implements IHTMLGenerator {
-
-	@Override
 	public String toHTML(Table table) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<table>\n");
@@ -16,8 +14,6 @@ public class HTMLGenerator implements IHTMLGenerator {
 		sb.append("</table>\n");
 		return sb.toString();
 	}
-
-	@Override
 	public String toHTML(Row row) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\t<tr>\n");
@@ -27,8 +23,6 @@ public class HTMLGenerator implements IHTMLGenerator {
 		sb.append("\t</tr>\n");
 		return sb.toString();
 	}
-
-	@Override
 	public String toHTML(Cell cell) {
 		StringBuffer sb = new StringBuffer();
 		switch (cell.colour) {

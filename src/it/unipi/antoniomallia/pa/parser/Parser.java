@@ -9,12 +9,10 @@ public class Parser {
 	private Tokenizer tokenizer;
 	private Token token;
 	private int columnNumber = 0;
-
 	public Parser(String s) throws Throwable {
 		tokenizer = new Tokenizer(s);
 		token = tokenizer.nextToken();
 	}
-
 	public Table doTable() throws Throwable {
 		Table table = new Table();
 		expect(TokenType.OPEN_TABLE);
@@ -26,7 +24,6 @@ public class Parser {
 		expect(TokenType.EOF);
 		return table;
 	}
-
 	private Row doRow() throws Throwable {
 		Row row = new Row();
 		expect(TokenType.OPEN_ROW);
@@ -45,7 +42,6 @@ public class Parser {
 		expect(TokenType.CLOSE_ROW);
 		return row;
 	}
-
 	private Cell doCell() throws Throwable {
 		Cell cell;
 		expect(TokenType.OPEN_COLUMN);
@@ -58,7 +54,6 @@ public class Parser {
 		expect(TokenType.CLOSE_COLUMN);
 		return cell;
 	}
-
 	public Row doHeader() throws Throwable {
 		Row row = new Row();
 		expect(TokenType.OPEN_ROW);
@@ -70,14 +65,11 @@ public class Parser {
 		expect(TokenType.CLOSE_ROW);
 		return row;
 	}
-
 	private void expect(TokenType tokenType) throws Throwable {
 		if (!token.isType(tokenType)) {
 			throw new SyntaxException("Expected: " + tokenType + " Obtained: "
 					+ token);
 		}
 		token = tokenizer.nextToken();
-
 	}
-
 }

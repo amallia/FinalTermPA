@@ -8,7 +8,7 @@ public class Product extends ColumnFixture {
 	public float x;
 	public float y;
 	public float result() {
-	return x*y;
+		return x;
 	}
 	public boolean check(Row row){
 		x = (float) TypeAdapter.convertTo(row.cells.get(0).text, "float");
@@ -19,4 +19,3 @@ public class Product extends ColumnFixture {
 		return check;
 	}
 }
-

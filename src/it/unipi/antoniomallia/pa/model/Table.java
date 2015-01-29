@@ -8,24 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table implements HTMLTag {
-
 	public List<Row> rows = new ArrayList<Row>();
-
 	public String execute(Fixture f) {
 		return f.execute(this);
 	}
-
 	public String generateClass(CodeGenerator cg) {
 		return cg.generateClass(this);
 	}
-
 	public String generateTest(CodeGenerator cg) {
-		return cg.generateClass(this);
+		return cg.generateTest(this);
 	}
-	
-	@Override
 	public String toHTML(IHTMLGenerator htmlGen) {
 		return htmlGen.toHTML(this);
 	}
-
 }
