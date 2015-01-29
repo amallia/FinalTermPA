@@ -16,9 +16,9 @@ public class ColumnFixtureCodeGenerator implements CodeGenerator {
 		}
 		stringBuffer
 				.append(String.format("public %s %s {\n\t}\n\t",
-						table.rows.get(1).cells.get(table.rows.get(1).cells
-								.size() - 1).text, table.rows.get(0).cells
-								.get(table.rows.get(0).cells.size() - 1).text));
+						table.rows.get(2).cells.get(table.rows.get(1).cells
+								.size() - 1).text, table.rows.get(1).cells
+								.get(table.rows.get(1).cells.size() - 1).text));
 		stringBuffer.append("public boolean check(Row row){\n\t\t");
 		for (int i = 0; i < table.rows.get(0).cells.size() - 1; i++) {
 			stringBuffer.append(String.format(
