@@ -14,31 +14,32 @@ public class ColumnFixtureCodeGenerator extends CodeGenerator {
 					table.rows.get(1).cells.get(i).text));
 		}
 		stringBuffer
+				.append(String.format("public %s result;\n\t",
+						table.rows.get(2).cells.get(table.rows.get(1).cells
+								.size() - 1).text));
+		stringBuffer
 				.append(String.format("public %s %s {\n\t}\n\t",
 						table.rows.get(2).cells.get(table.rows.get(1).cells
 								.size() - 1).text, table.rows.get(1).cells
 								.get(table.rows.get(1).cells.size() - 1).text));
 		stringBuffer.append("public boolean check(Row row){\n\t\t");
 		for (int i = 0; i < table.rows.get(1).cells.size() - 1; i++) {
-			stringBuffer
-					.append(String
-							.format("%s = (%s) TypeAdapter.convertTo(row.cells.get(%d).text, \"%s\");\n\t\t",
-									table.rows.get(1).cells.get(i).text,
-									table.rows.get(2).cells.get(i).text, i,
-									table.rows.get(2).cells.get(i).text));
+			stringBuffer.append(String.format(
+					"%s = (%s) row.cells.get(%d).convert(%s);\n\t\t",
+					table.rows.get(1).cells.get(i).text,
+					table.rows.get(2).cells.get(i).text, i,
+					table.rows.get(1).cells.get(i).text));
 		}
-		stringBuffer.append(String
-				.format("Object result = (Object) %s;\n\t\t",
-						table.rows.get(1).cells.get(table.rows.get(1).cells
-								.size() - 1).text));
 		stringBuffer
-				.append(String
-						.format("boolean check = result.equals(TypeAdapter.convertTo(row.cells.get(row.cells.size() - 1).text, \"%s\"));\n\t\t",
-								table.rows.get(2).cells.get(table.rows.get(1).cells
-										.size() - 1).text));
+				.append(String.format("%s result = %s;\n\t\t",
+						table.rows.get(2).cells.get(table.rows.get(1).cells
+								.size() - 1).text, table.rows.get(1).cells
+								.get(table.rows.get(1).cells.size() - 1).text));
+		stringBuffer
+				.append("boolean check = row.cells.get(row.cells.size() - 1).convert(result).equals(result);\n\t\t");
 
 		stringBuffer
-				.append("row.cells.get(row.cells.size() - 1).text= (result).toString();\n\t\treturn check;");
+				.append("row.cells.get(row.cells.size() - 1).text= String.valueOf(result);\n\t\treturn check;");
 		stringBuffer.append("\n\t}\n}");
 		return stringBuffer.toString();
 	}
