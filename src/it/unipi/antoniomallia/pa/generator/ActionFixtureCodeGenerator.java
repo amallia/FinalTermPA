@@ -16,6 +16,16 @@ public class ActionFixtureCodeGenerator extends CodeGenerator {
 				table.rows.get(0).cells.get(0).text));
 		sb.append("public boolean process() {\n");
 		for (Row row : table.rows) {
+			StringBuffer arguments = new StringBuffer();
+			for (int i = 3; i < row.cells.size(); i++) {
+				if (!row.cells.get(i).text.equals("")) {
+					arguments
+							.append(String.format("%s", row.cells.get(i).text));
+					if (i != row.cells.size() - 1) {
+						arguments.append(", ");
+					}
+				}
+			}
 			switch (row.cells.get(0).text) {
 			case "start":
 				stack.push(String.format("%s %s = new %s()",
@@ -24,22 +34,27 @@ public class ActionFixtureCodeGenerator extends CodeGenerator {
 				break;
 			case "call":
 				if (row.cells.get(1).text.equals("")) {
-					stack.push(String.format("%s(%s, %s)",
-							row.cells.get(2).text, row.cells.get(3).text,
-							row.cells.get(4).text));
-				} else {
-					stack.push(String.format("%s.%s()", row.cells.get(1).text,
-							row.cells.get(2).text));
-				}
-				break;
-			case "result":
-				if (row.cells.get(1).text.equals("")) {
 					stack.push(String.format("%s(%s)", row.cells.get(2).text,
-							stack.pop()));
+							arguments.toString()));
 				} else {
 					stack.push(String.format("%s.%s(%s)",
 							row.cells.get(1).text, row.cells.get(2).text,
-							stack.pop()));
+							arguments.toString()));
+				}
+				break;
+			case "result":
+				if (!arguments.toString().equals("")) {
+					arguments.insert(0, String.format("%s, ", stack.pop()));
+				} else {
+					arguments.append(stack.pop());
+				}
+				if (row.cells.get(1).text.equals("")) {
+					stack.push(String.format("%s(%s)", row.cells.get(2).text,
+							arguments.toString()));
+				} else {
+					stack.push(String.format("%s.%s(%s)",
+							row.cells.get(1).text, row.cells.get(2).text,
+							arguments.toString()));
 				}
 				break;
 			case "check":
@@ -60,5 +75,5 @@ public class ActionFixtureCodeGenerator extends CodeGenerator {
 		sb.append(checkFunction);
 		sb.append("\n}");
 		return sb.toString();
-	}	
+	}
 }

@@ -17,9 +17,9 @@ public class Test {
 		Parser parser = new Parser(html);
 		Table table = parser.doTable();
 	//	System.out.println(test(table));
-		System.out.println(table.generateTest(new ActionFixtureCodeGenerator()));
+		System.out.println(table.generateClass(new ActionFixtureCodeGenerator()));
 		//System.out.println(table.toHTML(new HTMLGenerator()));
-		//System.out.println(table.execute(new Action()));
+		//System.out.println(table.execute(new Concat()));
 	}
 
 }
