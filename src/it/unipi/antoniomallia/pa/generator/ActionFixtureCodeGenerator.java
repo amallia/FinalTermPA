@@ -59,7 +59,7 @@ public class ActionFixtureCodeGenerator extends CodeGenerator {
 				break;
 			case "check":
 				checkFunction = String
-						.format("private boolean check(Object obj){\n\t\treturn obj.equals(%s);\n\t}",
+						.format("private <T> boolean check(T t){\n\t\treturn t.equals(%s);\n\t}",
 								row.cells.get(1).text);
 				stack.push(String.format("return check(%s)", stack.pop()));
 				break;

@@ -8,15 +8,19 @@ public class Action extends ActionFixture {
 		acc.add(product(12, 12));
 		return check(sqrt(acc.add(product(7, 7))));
 	}
-	private Object sqrt(double add) {
-		// TODO Auto-generated method stub
-		return null;
+
+
+	private float sqrt(double add) {
+		return new Float(13.8924);
 	}
+
+
 	private double product(int i, int j) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	private boolean check(Object obj){
+
+	private <T> boolean check(T obj) {
 		return obj.equals(13.8924);
 	}
 }
